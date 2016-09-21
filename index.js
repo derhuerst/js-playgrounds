@@ -6,7 +6,9 @@ const stack = require('stack-trace')
 
 
 
-const lineBreak = /[\r\n]+/g
+const lineBreak = /\r\n|\r|\n/g
+const trailing = /[\r\n\s]+$/
+const trimRight = (s) => s.replace(trailing, '')
 
 const calculate = (code) => {
 	const lines = code.split(lineBreak).map((line) => line.length)
@@ -15,7 +17,7 @@ const calculate = (code) => {
 	try {
 		const results = inspect(code)
 		for (let result of results) {
-			const part = code.substring(0, result.to + 1).trim()
+			const part = trimRight(code.substring(0, result.to + 1))
 			if (!part) continue
 			const breaks = part.match(lineBreak)
 			const top = breaks ? breaks.length : 0
