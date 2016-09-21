@@ -1,0 +1,14 @@
+{
+	"name":        "js-playgrounds",
+	"description": "A command line JavaScript editor analyzing your code.",
+	"version":     "0.1.0",
+	"main":        "index.js",
+	"files":       ["index.js"],
+	"keywords":    ["editor", "code", "intel", "playground", "interactive", "eval"],
+	"author":      "Jannis R <mail@jannisr.de>",
+	"homepage":    "https://github.com/derhuerst/js-playgrounds",
+	"repository":  "derhuerst/js-playgrounds",
+	"bugs":        "https://github.com/derhuerst/js-playgrounds/issues",
+	"license":     "ISC",
+	"engines":     {"node": ">=6"}
+}
