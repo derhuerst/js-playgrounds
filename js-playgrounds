@@ -7,7 +7,7 @@ const debounce = require('debounce')
 const onKeypress = require('./index')
 
 if (process.env.NODE_ENV === 'dev') {
-	const log = require('fs').createWriteStream('logfile')
+	const log = require('fs').createWriteStream('debug.log')
 	process.on('uncaughtException', (err) => log.write(err.stack + '\n'))
 }
 
