@@ -2,6 +2,8 @@
 
 **A command line JavaScript editor analyzing your code**, using [`inspect-code`](https://github.com/derhuerst/inspect-code).
 
+[![asciicast](https://asciinema.org/a/86588.png)](https://asciinema.org/a/86588)
+
 ```shell
 npm install js-playgrounds
 js-playgrounds # run
