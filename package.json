@@ -10,5 +10,9 @@
 	"repository":  "derhuerst/js-playgrounds",
 	"bugs":        "https://github.com/derhuerst/js-playgrounds/issues",
 	"license":     "ISC",
-	"engines":     {"node": ">=6"}
+	"engines":     {"node": ">=6"},
+	"dependencies": {
+		"blessed": "^0.1.81",
+		"inspect-code": "derhuerst/inspect-code"
+	}
 }
