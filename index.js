@@ -2,6 +2,7 @@
 
 const blessed = require('blessed')
 const inspect = require('inspect-code')
+const stack = require('stack-trace')
 
 
 
@@ -25,7 +26,11 @@ const calculate = (code) => {
 			})
 		}
 	} catch (err) {
-		if (!err.loc) return []
+		if (!err.loc) {
+			const f = stack.parse(err)
+			if (!f || !f[0]) return []
+			err.loc = {line: f[0].lineNumber}
+		}
 		const top = err.loc.line - 1
 		markers.push({
 			top, left: lines[top] + 2,
