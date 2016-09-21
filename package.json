@@ -13,6 +13,8 @@
 	"engines":     {"node": ">=6"},
 	"dependencies": {
 		"blessed": "^0.1.81",
-		"inspect-code": "derhuerst/inspect-code"
+		"inspect-code": "derhuerst/inspect-code",
+		"editor-widget": "^1.1.1",
+		"debounce": "^1"
 	}
 }

@@ -1,0 +1,33 @@
+#!/usr/bin/env node
+
+const blessed = require('blessed')
+const Editor = require('editor-widget')
+const debounce = require('debounce')
+
+const onKeypress = require('./index')
+
+if (process.env.NODE_ENV === 'dev') {
+	const log = require('fs').createWriteStream('logfile')
+	process.on('uncaughtException', (err) => log.write(err.stack + '\n'))
+}
+
+
+
+const screen = blessed.screen({smartCSR: true})
+screen.key(['escape', 'C-c'], (ch, key) => process.exit(1))
+screen.key(['escape', 'C-q'], (ch, key) => process.exit(0))
+
+const editor = new Editor({
+	parent: screen,
+	gutter: {width: 0, hidden: true}
+})
+
+// editor.focus()
+
+const tick = debounce(onKeypress(editor))
+screen.on('keypress', () => process.nextTick(tick))
+setTimeout(tick, 20)
+
+editor.language('js')
+editor.textBuf.setText('const a = 1;\nconst b = 2;\na + b;')
+screen.render()
