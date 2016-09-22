@@ -10,19 +10,20 @@ const lineBreak = /\r\n|\r|\n/g
 const trailing = /[\r\n\s]+$/
 const trimRight = (s) => s.replace(trailing, '')
 
-const calculate = (code) => {
-	const lines = code.split(lineBreak).map((line) => line.length)
+const calculate = (editor) => {
 	const markers = []
 
 	try {
+		const code = editor.textBuf.getText()
 		const results = inspect(code)
 		for (let result of results) {
 			const part = trimRight(code.substring(0, result.to + 1))
 			if (!part) continue
 			const breaks = part.match(lineBreak)
 			const top = breaks ? breaks.length : 0
+			const p = editor.visiblePos({row: top, column: editor.textBuf.lineLengthForRow(top)})
 			markers.push({
-				top, left: lines[top] + 2,
+				top: p.row, left: p.column + 2,
 				content: result.values[result.values.length - 1] + '',
 				style: {fg: 'blue', underline: true}
 			})
@@ -34,8 +35,9 @@ const calculate = (code) => {
 			err.loc = {line: f[0].lineNumber}
 		}
 		const top = err.loc.line - 1
+		const p = editor.visiblePos({row: top, column: editor.textBuf.lineLengthForRow(top)})
 		markers.push({
-			top, left: lines[top] + 2,
+			top: p.row, left: p.column + 2,
 			content: err.message,
 			style: {fg: 'red', underline: true}
 		})
@@ -58,7 +60,7 @@ const onKeypress = (editor) => () => {
 		editor.parent.remove(marker)
 
 	process.nextTick(() => {
-		markers = calculate(code).map((m) => blessed.text(m))
+		markers = calculate(editor).map((m) => blessed.text(m))
 
 		for (let marker of markers)
 			editor.parent.append(marker)
