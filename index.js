@@ -6,10 +6,6 @@ const stack = require('stack-trace')
 
 
 
-const lineBreak = /\r\n|\r|\n/g
-const trailing = /[\r\n\s]+$/
-const trimRight = (s) => s.replace(trailing, '')
-
 const calculate = (editor) => {
 	const markers = []
 
@@ -17,11 +13,10 @@ const calculate = (editor) => {
 		const code = editor.textBuf.getText()
 		const results = inspect(code)
 		for (let result of results) {
-			const part = trimRight(code.substring(0, result.to + 1))
-			if (!part) continue
-			const breaks = part.match(lineBreak)
-			const top = breaks ? breaks.length : 0
-			const p = editor.visiblePos({row: top, column: editor.textBuf.lineLengthForRow(top)})
+			const p = editor.visiblePos({
+				row: result.end.line,
+				column: editor.textBuf.lineLengthForRow(result.end.line)
+			})
 			markers.push({
 				top: p.row, left: p.column + 2,
 				content: result.values[result.values.length - 1] + '',
@@ -35,7 +30,9 @@ const calculate = (editor) => {
 			err.loc = {line: f[0].lineNumber}
 		}
 		const top = err.loc.line - 1
-		const p = editor.visiblePos({row: top, column: editor.textBuf.lineLengthForRow(top)})
+		const p = editor.visiblePos({
+			row: top, column: editor.textBuf.lineLengthForRow(top)
+		})
 		markers.push({
 			top: p.row, left: p.column + 2,
 			content: err.message,
