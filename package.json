@@ -15,7 +15,6 @@
 	"dependencies": {
 		"blessed": "^0.1.81",
 		"inspect-code": "derhuerst/inspect-code",
-		"stack-trace": "^0.0.9",
 		"editor-widget": "^1.1.1",
 		"debounce": "^1"
 	}
