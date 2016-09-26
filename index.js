@@ -2,6 +2,7 @@
 
 const blessed = require('blessed')
 const inspect = require('inspect-code')
+const util = require('util')
 
 
 
@@ -18,20 +19,25 @@ const calculate = (editor) => {
 			})
 			markers.push({
 				top: p.row, left: p.column + 2,
-				content: result.values[result.values.length - 1] + '',
+				content: util.inspect(result.values[result.values.length - 1]),
 				style: {fg: 'blue', underline: true}
 			})
 		}
 	} catch (err) {
-		if (!err.loc) return markers
-		const p = editor.visiblePos({
-			row: err.loc.line - 1,
-			column: editor.textBuf.lineLengthForRow(err.loc.line - 1)
-		})
-		markers.push({
-			top: p.row, left: p.column + 2,
+		if (err.loc) {
+			const p = editor.visiblePos({
+				row: err.loc.line - 1,
+				column: editor.textBuf.lineLengthForRow(err.loc.line - 1)
+			})
+			markers.push({
+				top: p.row, left: p.column + 2,
+				content: err.message,
+				style: {fg: 'red', underline: true}
+			})
+		} else markers.push({
+			top: 0, left: 0,
 			content: err.message,
-			style: {fg: 'red', underline: true}
+			style: {fg: 'white', bg: 'red'}
 		})
 	}
 
