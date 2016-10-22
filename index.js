@@ -7,7 +7,7 @@ const util = require('util')
 
 
 const calculate = (editor) => {
-	const markers = []
+	let markers = []
 
 	try {
 		const code = editor.textBuf.getText()
@@ -20,7 +20,7 @@ const calculate = (editor) => {
 			markers.push({
 				top: p.row, left: p.column + 2,
 				content: util.inspect(result.values[result.values.length - 1]),
-				style: {fg: 'blue', underline: true}
+				style: {fg: 'blue'}
 			})
 		}
 	} catch (err) {
@@ -41,6 +41,13 @@ const calculate = (editor) => {
 		})
 	}
 
+	// markers may overlap each other
+	markers = markers.sort((m1, m2) => m1.top - m2.top)
+	for (let i = 0; i < markers.length; i++) {
+		const m1 = markers[i - 1]; const m2 = markers[i]
+		if (m1 && m1.top === m2.top)
+			m2.left = m1.left + m1.content.length + 1
+	}
 	return markers
 }
 
