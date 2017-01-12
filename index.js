@@ -19,7 +19,7 @@ const calculate = (editor) => {
 			})
 			markers.push({
 				top: p.row, left: p.column + 2,
-				content: util.inspect(result.values[result.values.length - 1]),
+				content: util.inspect(result.value),
 				style: {fg: 'blue'}
 			})
 		}

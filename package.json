@@ -14,7 +14,7 @@
 	"engines":     {"node": ">=6"},
 	"dependencies": {
 		"blessed": "^0.1.81",
-		"inspect-code": "derhuerst/inspect-code#b2ab1e67ac90869c4844df23be126bd4988aff96",
+		"inspect-code": "^0.1.0",
 		"editor-widget": "^1.1.1",
 		"debounce": "^1"
 	}
