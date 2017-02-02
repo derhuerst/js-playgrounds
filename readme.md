@@ -13,6 +13,7 @@ js-playgrounds # run
 [![dependency status](https://img.shields.io/david/derhuerst/js-playgrounds.svg)](https://david-dm.org/derhuerst/js-playgrounds)
 [![dev dependency status](https://img.shields.io/david/dev/derhuerst/js-playgrounds.svg)](https://david-dm.org/derhuerst/js-playgrounds#info=devDependencies)
 ![ISC-licensed](https://img.shields.io/github/license/derhuerst/js-playgrounds.svg)
+[![chat on gitter](https://badges.gitter.im/derhuerst.svg)](https://gitter.im/derhuerst)
 
 ## Contributing
 

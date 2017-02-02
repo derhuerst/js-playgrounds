@@ -1,7 +1,7 @@
 {
 	"name":        "js-playgrounds",
 	"description": "A command line JavaScript editor analyzing your code.",
-	"version":     "0.1.0",
+	"version":     "0.2.0",
 	"main":        "index.js",
 	"bin":         "./js-playgrounds",
 	"files":       ["index.js", "js-playgrounds"],
